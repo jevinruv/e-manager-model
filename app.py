@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from model import get_prediction
+from flask import Response
 
 app = Flask(__name__)
 
@@ -52,7 +53,7 @@ def predict():
 
         response = get_prediction(predict_freq, duration)
 
-    return jsonify(response)
+    return Response(response, mimetype='application/json')
   
 
 @app.route('/')
