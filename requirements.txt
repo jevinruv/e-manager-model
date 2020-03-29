@@ -1,3 +1,5 @@
+numpy==1.18.2
+pandas==1.0.3
 Click==7.0
 Flask==1.1.1
 gunicorn==19.9.0
@@ -6,5 +8,3 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 Werkzeug==0.15.6
 fbprophet==0.6
-numpy==1.18.2
-pandas==1.0.3

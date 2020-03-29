@@ -45,7 +45,7 @@ app = Flask(__name__)
 @app.route("/predict", methods=["POST"])
 def predict():
 
-    if flask.request.method == "POST":
+    if request.method == "POST":
         request_json = request.get_json()
         predict_freq = request_json['predict_freq']
         duration = request_json['duration']
@@ -54,8 +54,8 @@ def predict():
         response["predict_freq"] = predict_freq + "RU"
         # response = get_prediction(predict_freq, duration)
 
-    # return jsonify(data)
-    return response
+    return jsonify(response)
+    # return response
   
 
 @app.route('/')
