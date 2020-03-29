@@ -41,33 +41,6 @@ def get_prediction_results(predict_freq, duration):
  
   duration_to_cal = calculate_start_date(predict_freq) + duration
 
-  # Make a future dataframe
-  future = model.make_future_dataframe(periods=duration_to_cal, freq=predict_freq)
-  data_forecast = model.predict(future)
-
-  data_forecast["Consumption"] = np.exp(data_forecast.yhat).round()
-  data_forecast["Consumption_lower"] = np.exp(data_forecast.yhat_lower).round()
-  data_forecast["Consumption_upper"] = np.exp(data_forecast.yhat_upper).round()
-
-  result = data_forecast[["ds","Consumption_lower","Consumption", "Consumption_upper"]].tail(duration)
-
-  if is_annual == True:
-    result.index = result['ds'] 
-    result = result.resample('Y').sum()
-
-  return result
-
-def get_prediction_results_from_model(predict_freq, duration):
-
-  is_annual = False
-
-  if predict_freq.upper() == 'Y':
-    duration = duration * 12
-    predict_freq = 'M'
-    is_annual = True
- 
-  duration_to_cal = calculate_start_date(predict_freq) + duration
-
   # load model
   with open("prophet_model.pkl", 'rb') as f:
     model = pickle.load(f)
@@ -102,7 +75,6 @@ def train_model(df):
 
 
 def get_prediction(predict_freq, duration):
-	predicted_result = get_prediction_results_from_model(predict_freq, duration)
-	# predicted_result = get_prediction_results(predict_freq, duration)
+	predicted_result = get_prediction_results(predict_freq, duration)
 
 	return predicted_result.to_json(orient='records')
