@@ -59,7 +59,7 @@ def get_prediction_results(predict_freq, duration):
     result.index = result['ds'] 
     result = result.resample('Y').sum()
 
-  result['ds'] = result['ds'].astype(str)
+  result['ds'] = result['ds'].astype('string')
   return result
 
 def train_model(df):
