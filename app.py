@@ -50,6 +50,7 @@ def predict():
         predict_freq = request_json['predict_freq']
         duration = request_json['duration']
 
+        response = {}
         response["duration"] = duration + "JE"
         response["predict_freq"] = predict_freq + "RU"
         # response = get_prediction(predict_freq, duration)
