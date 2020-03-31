@@ -58,6 +58,7 @@ def get_prediction_results(predict_freq, duration):
   if is_annual == True:
     result.index = result['ds'] 
     result = result.resample('Y').sum()
+    result.reset_index(level=0, inplace=True)
 
   result['ds'] = result['ds'].astype('string')
   return result
