@@ -7,6 +7,9 @@ import pickle
 import pandas as pd
 import numpy as np
 from fbprophet import Prophet
+from fbprophet.diagnostics import performance_metrics
+from fbprophet.diagnostics import cross_validation
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -75,6 +78,16 @@ def train_model(df):
 	    pickle.dump(model, f)
 	print("Model Saved as File")
 
+	return model
+
+def test_model(model):
+
+	# Making 90 forecasts with cutoffs between 2008-03-11 00:00:00 and 2010-08-18 00:00:00
+	df_cv = cross_validation(model, initial='450 days', period='10 days', horizon = '100 days')
+	df_cv.head()
+
+	df_p = performance_metrics(df_cv)
+	df_p.head()
 
 def get_prediction(predict_freq, duration):
 	predicted_result = get_prediction_results(predict_freq, duration)
